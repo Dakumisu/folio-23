@@ -1,0 +1,15 @@
+{
+  "name": "@lm/eslint-config",
+  "version": "0.0.1",
+  "author": "Daku",
+  "description": "ESLint config",
+  "license": "MIT",
+  "main": "./index.js",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "dependencies": {
+    "eslint": "^8.35.0",
+    "eslint-plugin-vue": "^9.9.0"
+  }
+}

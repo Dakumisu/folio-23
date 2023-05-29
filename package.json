@@ -1,0 +1,31 @@
+{
+  "name": "le-monorepo",
+  "version": "0.0.1",
+  "private": false,
+  "type": "module",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "eslintConfig": {
+    "extends": "@lm/eslint-config"
+  },
+  "stylelint": {
+    "extends": "@lm/stylelint-config"
+  },
+  "scripts": {
+    "dev": "turbo run dev --parallel --continue",
+    "build": "turbo run build",
+    "clean": "turbo run clean",
+    "updatePackages": "pnpm clean && pnpm i && pnpm update --latest"
+  },
+  "devDependencies": {
+    "@lm/eslint-config": "workspace:*",
+    "@lm/stylelint-config": "workspace:*",
+    "turbo": "^1.9.9"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "packageManager": "pnpm@7.25.0"
+}

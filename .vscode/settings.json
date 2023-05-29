@@ -1,0 +1,66 @@
+{
+  "files.exclude": {},
+  "search.exclude": {
+    "**/.cache": true,
+    "**/node_modules": true
+  },
+  "editor.autoClosingQuotes": "always",
+  "javascript.preferences.quoteStyle": "single",
+  "typescript.preferences.quoteStyle": "single",
+  "editor.formatOnPaste": false,
+  "editor.formatOnSave": false,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true,
+    "source.fixAll.stylelint": true,
+    "source.fixAll.prettier": true
+  },
+  "editor.insertSpaces": false,
+  "editor.renderWhitespace": "all",
+  "editor.tabCompletion": "on",
+  "editor.tabSize": 4,
+  "files.insertFinalNewline": true,
+  "files.trimTrailingWhitespace": true,
+  "[markdown]": {
+    "files.trimTrailingWhitespace": false
+  },
+  "emmet.includeLanguages": {
+    "ejs": "html",
+  },
+  "files.associations": {
+    "*.ejs": "html"
+  },
+  "html.format.enable": false,
+  "html.validate.styles": false,
+  "html.validate.scripts": false,
+  "javascript.format.enable": false,
+  "javascript.validate.enable": false,
+  "javascript.suggestionActions.enabled": false,
+  "typescript.format.enable": false,
+  "typescript.validate.enable": false,
+  "typescript.preferences.importModuleSpecifierEnding": "js",
+  "css.validate": false,
+  "scss.validate": false,
+  "stylelint.validate": [
+    "css",
+    "scss",
+    "html",
+    "ejs",
+    "vue"
+  ],
+  "volar.codeLens.references": false,
+  "volar.completion.preferredTagNameCase": "pascal",
+  "volar.inlayHints.eventArgumentInInlineHandlers": false,
+  "javascript.preferences.autoImportFileExcludePatterns": [
+    "@vue/runtime-core",
+    "@vue/runtime-dom",
+    "@vue/reactivity",
+    "@vue/shared"
+  ],
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.expand": false,
+  "explorer.fileNesting.patterns": {
+    ".gitignore": ".gitkeep, .gitattributes, .gitmodules, .gitmessage, .mailmap, .git-blame*",
+    "package.json": ".browserslist*, .editorconfig, .firebase*, jsconfig.json, .npm*, .nvmrc, .pm2*, .prettier*, .stylelint*, tsconfig.json, .vscode*, .yarnrc*, eslint*, firebase.json, database-debug*, firebase-debug*, firestore-debug*, pubsub-debug*, ui-debug*, lerna*, package-lock.json, package.nls*.json, pm2.*, pnpm*, prettier*, stylelint*, typedoc*, vercel*, workspace.json, yarn*",
+    "readme*": "authors, changelog*, contributing*, contributors, history.md, license*, readme*",
+  }
+}

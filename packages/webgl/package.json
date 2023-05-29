@@ -1,0 +1,18 @@
+{
+  "name": "@lm/le-webgl",
+  "version": "0.0.5",
+  "description": "WebGL Library (based from OGL)",
+  "exports": "./index.js",
+  "type": "module",
+  "sideEffects": false,
+  "repository": {
+    "type": "git",
+    "url": "git+https://gordonnl@github.com/oframe/ogl.git"
+  },
+  "author": "Nathan Gordon & Dakumisu",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/oframe/ogl/issues"
+  },
+  "homepage": "https://github.com/oframe/ogl#readme"
+}

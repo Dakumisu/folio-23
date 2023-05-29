@@ -1,0 +1,12 @@
+{
+  "name": "@lm/utils",
+  "version": "0.0.1",
+  "author": "Daku",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "license": "ISC"
+}
