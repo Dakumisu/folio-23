@@ -1,11 +1,10 @@
 import vue from '@vitejs/plugin-vue';
+// import glsl from 'vite-plugin-glsl';
 import { defineConfig } from 'vite';
-import hotShadersRollupPlugin from './plugins/hotShaders/hotshadersRollupPlugin';
+// import hotShadersRollupPlugin from './plugins/hotShaders/hotshadersRollupPlugin';
 import ifdefRollupPlugin from './plugins/ifdef/ifdefRollupPlugin';
-// import { paths, pathsAliases } from './utils/paths';
 import { getPaths } from './utils/paths';
-
-const { paths, pathsAliases } = getPaths();
+import glsl from './plugins/glsl';
 
 export default ({ mode = 'development' }) => {
 	const isDevelopment = mode === 'development';
@@ -19,6 +18,8 @@ export default ({ mode = 'development' }) => {
 		STAGING: JSON.stringify(isStaging),
 		DEBUG: isDevelopment,
 	};
+
+	const { paths, pathsAliases } = getPaths();
 
 	return defineConfig({
 		root: paths.root,
@@ -39,7 +40,17 @@ export default ({ mode = 'development' }) => {
 		plugins: [
 			vue(),
 			ifdefRollupPlugin(MANDATORY_DEFINES),
-			hotShadersRollupPlugin(isDevelopment),
+			glsl({
+				include: [ // Glob pattern, or array of glob patterns to import
+					'**/*.glsl', '**/*.wgsl',
+					'**/*.vert', '**/*.frag',
+					'**/*.vs', '**/*.fs'
+				],
+				warnDuplicatedImports: isDevelopment, // Warn if the same chunk was imported multiple times
+				compress: !isDevelopment, // Compress output shader code
+				watch: true, // Recompile shader on change
+			})
+			// hotShadersRollupPlugin(isDevelopment),
 		],
 
 		define: MANDATORY_DEFINES,

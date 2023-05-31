@@ -54,7 +54,7 @@ export class Program {
 		gl.compileShader(vertexShader);
 		if (gl.getShaderInfoLog(vertexShader) !== '') {
 			console.warn(
-				`${gl.getShaderInfoLog(vertexShader)}\nVertex Shader\n${addLineNumbers(vertex)}`,
+				`${ gl.getShaderInfoLog(vertexShader) }\nVertex Shader\n${ addLineNumbers(vertex) }`,
 			);
 		}
 
@@ -64,9 +64,9 @@ export class Program {
 		gl.compileShader(fragmentShader);
 		if (gl.getShaderInfoLog(fragmentShader) !== '') {
 			console.warn(
-				`${gl.getShaderInfoLog(fragmentShader)}\nFragment Shader\n${addLineNumbers(
+				`${ gl.getShaderInfoLog(fragmentShader) }\nFragment Shader\n${ addLineNumbers(
 					fragment,
-				)}`,
+				) }`,
 			);
 		}
 
@@ -93,15 +93,15 @@ export class Program {
 			// split uniforms' names to separate array and struct declarations
 			const split = uniform.name.match(/(\w+)/g);
 
-			uniform.uniformName = split[0];
+			uniform.uniformName = split[ 0 ];
 
 			if (split.length === 3) {
 				uniform.isStructArray = true;
-				uniform.structIndex = Number(split[1]);
-				uniform.structProperty = split[2];
-			} else if (split.length === 2 && isNaN(Number(split[1]))) {
+				uniform.structIndex = Number(split[ 1 ]);
+				uniform.structProperty = split[ 2 ];
+			} else if (split.length === 2 && isNaN(Number(split[ 1 ]))) {
 				uniform.isStruct = true;
-				uniform.structProperty = split[1];
+				uniform.structProperty = split[ 1 ];
 			}
 		}
 
@@ -114,7 +114,7 @@ export class Program {
 			const location = gl.getAttribLocation(this.program, attribute.name);
 			// Ignore special built-in inputs. eg gl_VertexID, gl_InstanceID
 			if (location === -1) continue;
-			locations[location] = attribute.name;
+			locations[ location ] = attribute.name;
 			this.attributeLocations.set(attribute, location);
 		}
 		this.attributeOrder = locations.join('');
@@ -172,24 +172,24 @@ export class Program {
 			let name = activeUniform.uniformName;
 
 			// get supplied uniform
-			let uniform = this.uniforms[name];
+			let uniform = this.uniforms[ name ];
 
 			// For structs, get the specific property instead of the entire object
 			if (activeUniform.isStruct) {
-				uniform = uniform[activeUniform.structProperty];
-				name += `.${activeUniform.structProperty}`;
+				uniform = uniform[ activeUniform.structProperty ];
+				name += `.${ activeUniform.structProperty }`;
 			}
 			if (activeUniform.isStructArray) {
-				uniform = uniform[activeUniform.structIndex][activeUniform.structProperty];
-				name += `[${activeUniform.structIndex}].${activeUniform.structProperty}`;
+				uniform = uniform[ activeUniform.structIndex ][ activeUniform.structProperty ];
+				name += `[${ activeUniform.structIndex }].${ activeUniform.structProperty }`;
 			}
 
 			if (!uniform) {
-				return warn(`Active uniform ${name} has not been supplied`);
+				return warn(`Active uniform ${ name } has not been supplied`);
 			}
 
 			if (uniform && uniform.value === undefined) {
-				return warn(`${name} uniform is missing a value parameter`);
+				return warn(`${ name } uniform is missing a value parameter`);
 			}
 
 			if (uniform.value.texture) {
@@ -201,7 +201,7 @@ export class Program {
 			}
 
 			// For texture arrays, set uniform as an array of texture units instead of just one
-			if (uniform.value.length && uniform.value[0].texture) {
+			if (uniform.value.length && uniform.value[ 0 ].texture) {
 				const textureUnits = [];
 				uniform.value.forEach((value) => {
 					textureUnit = textureUnit + 1;
@@ -283,33 +283,33 @@ function setUniform(gl, type, location, value) {
 function addLineNumbers(string) {
 	let lines = string.split('\n');
 	for (let i = 0; i < lines.length; i++) {
-		lines[i] = i + 1 + ': ' + lines[i];
+		lines[ i ] = i + 1 + ': ' + lines[ i ];
 	}
 	return lines.join('\n');
 }
 
 function flatten(a) {
 	const arrayLen = a.length;
-	const valueLen = a[0].length;
+	const valueLen = a[ 0 ].length;
 	if (valueLen === undefined) return a;
 	const length = arrayLen * valueLen;
-	let value = arrayCacheF32[length];
-	if (!value) arrayCacheF32[length] = value = new Float32Array(length);
-	for (let i = 0; i < arrayLen; i++) value.set(a[i], i * valueLen);
+	let value = arrayCacheF32[ length ];
+	if (!value) arrayCacheF32[ length ] = value = new Float32Array(length);
+	for (let i = 0; i < arrayLen; i++) value.set(a[ i ], i * valueLen);
 	return value;
 }
 
 function arraysEqual(a, b) {
 	if (a.length !== b.length) return false;
 	for (let i = 0, l = a.length; i < l; i++) {
-		if (a[i] !== b[i]) return false;
+		if (a[ i ] !== b[ i ]) return false;
 	}
 	return true;
 }
 
 function setArray(a, b) {
 	for (let i = 0, l = a.length; i < l; i++) {
-		a[i] = b[i];
+		a[ i ] = b[ i ];
 	}
 }
 

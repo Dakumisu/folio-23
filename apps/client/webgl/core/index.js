@@ -108,5 +108,4 @@ function getWebgl() {
 	return instance;
 }
 
-export default instance;
 export { createWebgl, getWebgl, instance as webgl, instance as gl };

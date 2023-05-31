@@ -8,7 +8,7 @@ const TYPES = {
 	'.vs': 'vertexShader',
 };
 
-const EXTS = Object.keys(TYPES).reduce((p, v) => ((p[v] = true), p), {});
+const EXTS = Object.keys(TYPES).reduce((p, v) => ((p[ v ] = true), p), {});
 
 const hotShaderPath = '~config/plugins/hotShaders/hotShader.js';
 
@@ -18,10 +18,10 @@ module.exports = function hotshadersRollupPlugin(isDev) {
 		config: () => ({ resolve: { extensions: Object.keys(EXTS) } }),
 		transform: async (src, id) => {
 			const split = path.extname(id).split('?');
-			const ext = split[0];
-			if (!EXTS[ext]) return;
+			const ext = split[ 0 ];
+			if (!EXTS[ ext ]) return;
 
-			const params = new URLSearchParams(split[1]);
+			const params = new URLSearchParams(split[ 1 ]);
 			const isHot = params.has('hotshader');
 			let code = src;
 
@@ -38,18 +38,18 @@ module.exports = function hotshadersRollupPlugin(isDev) {
 			}
 
 			if (isHot) {
-				const type = TYPES[ext];
+				const type = TYPES[ ext ];
 				code = [
-					`import hotShader from "${hotShaderPath}";`,
+					`import hotShader from "${ hotShaderPath }";`,
 					'',
-					`const shader = ${JSON.stringify(code)};`,
+					`const shader = ${ JSON.stringify(code) };`,
 					'',
-					`export default hotShader(shader, "${type}", update => {`,
+					`export default hotShader(shader, "${ type }", update => {`,
 					`	if (import.meta.hot) import.meta.hot.accept(update);`,
 					`});`,
 				].join('\n');
 			} else {
-				code = `export default ${JSON.stringify(code)};`;
+				code = `export default ${ JSON.stringify(code) };`;
 			}
 
 			return {

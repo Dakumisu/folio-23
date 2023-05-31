@@ -48,12 +48,12 @@ export class Geometry {
 
 		// create the buffers
 		for (let key in attributes) {
-			this.addAttribute(key, attributes[key]);
+			this.addAttribute(key, attributes[ key ]);
 		}
 	}
 
 	addAttribute(key, attr) {
-		this.attributes[key] = attr;
+		this.attributes[ key ] = attr;
 
 		// Set options
 		attr.id = ATTR_ID++; // TODO: currently unused, remove?
@@ -63,8 +63,8 @@ export class Geometry {
 			(attr.data.constructor === Float32Array
 				? this.gl.FLOAT
 				: attr.data.constructor === Uint16Array
-				? this.gl.UNSIGNED_SHORT
-				: this.gl.UNSIGNED_INT); // Uint32Array
+					? this.gl.UNSIGNED_SHORT
+					: this.gl.UNSIGNED_INT); // Uint32Array
 		attr.target = key === 'index' ? this.gl.ELEMENT_ARRAY_BUFFER : this.gl.ARRAY_BUFFER;
 		attr.normalized = attr.normalized || false;
 		attr.stride = attr.stride || 0;
@@ -128,8 +128,8 @@ export class Geometry {
 	}
 
 	createVAO(program) {
-		this.VAOs[program.attributeOrder] = this.gl.renderer.createVertexArray();
-		this.gl.renderer.bindVertexArray(this.VAOs[program.attributeOrder]);
+		this.VAOs[ program.attributeOrder ] = this.gl.renderer.createVertexArray();
+		this.gl.renderer.bindVertexArray(this.VAOs[ program.attributeOrder ]);
 		this.bindAttributes(program);
 	}
 
@@ -137,12 +137,12 @@ export class Geometry {
 		// Link all attributes to program using gl.vertexAttribPointer
 		program.attributeLocations.forEach((location, { name, type }) => {
 			// If geometry missing a required shader attribute
-			if (!this.attributes[name]) {
-				console.warn(`active attribute ${name} not being supplied`);
+			if (!this.attributes[ name ]) {
+				console.warn(`active attribute ${ name } not being supplied`);
 				return;
 			}
 
-			const attr = this.attributes[name];
+			const attr = this.attributes[ name ];
 
 			this.gl.bindBuffer(attr.target, attr.buffer);
 			this.glState.boundBuffer = attr.buffer;
@@ -180,15 +180,15 @@ export class Geometry {
 	}
 
 	draw({ program, mode = this.gl.TRIANGLES }) {
-		if (this.gl.renderer.currentGeometry !== `${this.id}_${program.attributeOrder}`) {
-			if (!this.VAOs[program.attributeOrder]) this.createVAO(program);
-			this.gl.renderer.bindVertexArray(this.VAOs[program.attributeOrder]);
-			this.gl.renderer.currentGeometry = `${this.id}_${program.attributeOrder}`;
+		if (this.gl.renderer.currentGeometry !== `${ this.id }_${ program.attributeOrder }`) {
+			if (!this.VAOs[ program.attributeOrder ]) this.createVAO(program);
+			this.gl.renderer.bindVertexArray(this.VAOs[ program.attributeOrder ]);
+			this.gl.renderer.currentGeometry = `${ this.id }_${ program.attributeOrder }`;
 		}
 
 		// Check if any attributes need updating
 		program.attributeLocations.forEach((location, { name }) => {
-			const attr = this.attributes[name];
+			const attr = this.attributes[ name ];
 			if (attr.needsUpdate) this.updateAttribute(attr);
 		});
 
@@ -258,9 +258,9 @@ export class Geometry {
 
 		// TODO: check size of position (eg triangle with Vec2)
 		for (let i = 0, l = array.length; i < l; i += stride) {
-			const x = array[i];
-			const y = array[i + 1];
-			const z = array[i + 2];
+			const x = array[ i ];
+			const y = array[ i + 1 ];
+			const z = array[ i + 2 ];
 
 			min.x = Math.min(x, min.x);
 			min.y = Math.min(y, min.y);
@@ -293,12 +293,12 @@ export class Geometry {
 
 	remove() {
 		for (let key in this.VAOs) {
-			this.gl.renderer.deleteVertexArray(this.VAOs[key]);
-			delete this.VAOs[key];
+			this.gl.renderer.deleteVertexArray(this.VAOs[ key ]);
+			delete this.VAOs[ key ];
 		}
 		for (let key in this.attributes) {
-			this.gl.deleteBuffer(this.attributes[key].buffer);
-			delete this.attributes[key];
+			this.gl.deleteBuffer(this.attributes[ key ].buffer);
+			delete this.attributes[ key ];
 		}
 	}
 }

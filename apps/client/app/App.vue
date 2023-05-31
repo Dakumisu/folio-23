@@ -1,9 +1,13 @@
 <template>
 	<main class="ui">
-		<!-- <nav>
-			<RouterLink to="/">Home</RouterLink>
-			<RouterLink to="/work">Work</RouterLink>
-		</nav> -->
+		<nav>
+			<RouterLink to="/">
+				Home
+			</RouterLink>
+			<RouterLink to="/work">
+				Work
+			</RouterLink>
+		</nav>
 
 		<RouterView />
 	</main>
@@ -13,7 +17,7 @@
 
 <script setup></script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .ui {
 	position: relative;
 	z-index: 1;

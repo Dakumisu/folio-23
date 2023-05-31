@@ -1,8 +1,8 @@
 import BaseScene from '~webgl/core/BaseScene';
-import Child from './Child';
+import PixelNoisePlane from './PixelNoisePlane';
 
 export default class Scene extends BaseScene {
 	init() {
-		this.child = this.add(Child);
+		this.pixelNoisePlane = this.add(PixelNoisePlane);
 	}
 }

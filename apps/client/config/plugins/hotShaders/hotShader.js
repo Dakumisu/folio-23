@@ -8,7 +8,7 @@ export default function hotMaterial(shader, type, cb) {
 		shader,
 		use: (el) => {
 			const instance = el.material || el;
-			instance[type] = shader;
+			instance[ type ] = shader;
 			instance.needsUpdate = true;
 			return el;
 		},
@@ -21,7 +21,7 @@ export default function hotMaterial(shader, type, cb) {
 
 		obj.use = (el) => {
 			const instance = el.material || el;
-			instance[type] = obj.shader;
+			instance[ type ] = obj.shader;
 			instance.needsUpdate = true;
 			obj.instances.add(instance);
 			return el;
