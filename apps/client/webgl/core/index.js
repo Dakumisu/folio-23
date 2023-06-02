@@ -1,8 +1,8 @@
 import { s } from '@lm/utils/state';
 import { ucfirst } from '@lm/utils/string';
-import { createWebgl as decorator } from '~webgl';
 import { plugins as rawPlugins } from '~webgl/plugins';
 import { shaderProps } from '~webgl/shaders/shaderProps';
+import { createWebgl as decorator } from '~webgl/webgl';
 
 const NOOP = () => {};
 

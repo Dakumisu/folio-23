@@ -12,7 +12,7 @@ export class GPGPU {
 			data = new Float32Array(16),
 			geometry = new Triangle(gl),
 			type, // Pass in gl.FLOAT to force it, defaults to gl.HALF_FLOAT
-		},
+		} = {},
 	) {
 		this.gl = gl;
 		const initialData = data;
@@ -71,7 +71,7 @@ export class GPGPU {
 			type:
 				type ||
 				gl.HALF_FLOAT ||
-				gl.renderer.extensions['OES_texture_half_float'].HALF_FLOAT_OES,
+				gl.renderer.extensions[ 'OES_texture_half_float' ].HALF_FLOAT_OES,
 			format: gl.RGBA,
 			internalFormat: gl.renderer.isWebgl2
 				? type === gl.FLOAT
@@ -102,7 +102,7 @@ export class GPGPU {
 		textureUniform = 'tMap',
 		enabled = true,
 	} = {}) {
-		uniforms[textureUniform] = this.uniform;
+		uniforms[ textureUniform ] = this.uniform;
 		const program = new Program(this.gl, { vertex, fragment, uniforms });
 		const mesh = new Mesh(this.gl, { geometry: this.geometry, program });
 

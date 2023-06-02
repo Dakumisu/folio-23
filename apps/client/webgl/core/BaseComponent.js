@@ -26,14 +26,15 @@ export default class BaseComponent {
 		this.webgl = getWebgl();
 
 		this.parent = props.parent ?? null;
+		this.autoUpdate = props.autoUpdate ?? false;
 
 		// TODO: un peu complexe, à revoir
 		this.uid = uid++;
-		let i = 0;
-		let name = (props.name || props.id || this.constructor.name || `Component#${ uid }`) + '#' + i;
+		this.name = (props.name || props.id || this.constructor.name || `Component#${ this.uid }`);
 		// if a component with the same name already exists, add a number to the end
-		while (this.webgl.components[ name ]) name = this.name + '#' + i++;
-		this.name = name;
+		let name = this.name;
+		let i = 0;
+		while (this.webgl.components[ this.name ]) this.name = name + '#' + i++;
 		this.webgl.components[ this.name ] = this;
 
 		this.uuid = generateUUID(uid);
@@ -42,19 +43,19 @@ export default class BaseComponent {
 		Object.assign(this, { log, warn, error });
 	}
 
-	triggerInit() {
-		if (this.beforeInit) this.beforeInit();
-		if (this.init) this.init();
+	triggerInit(args = {}) {
+		if (this.beforeInit) this.beforeInit(args);
+		if (this.init) this.init(args);
 
 		/// #if DEBUG
 		if (this.debug) this.beforeDebug();
 		/// #endif
 
-		if (this.afterInit) this.afterInit();
+		if (this.afterInit) this.afterInit(args);
 
 		// Link the methods only on the parent component
 		// Leave it here so we can instentiate a component without a parent
-		if (!this.parent) {
+		if (!this.parent && this.autoUpdate) {
 			this.webgl.hooks.beforeUpdate.watch(this.triggerUpdate, this);
 			this.webgl.hooks.beforeRender.watch(this.triggerRender, this);
 		}
@@ -62,24 +63,24 @@ export default class BaseComponent {
 		this.isInitialized = true;
 	}
 
-	triggerUpdate() {
-		if (this.beforeUpdate) this.beforeUpdate();
+	triggerUpdate(args = {}) {
+		if (this.beforeUpdate) this.beforeUpdate(args);
 
 		if (this.children.size)
 			this.children.forEach((child) => child.isInitialized && child.triggerUpdate());
 
-		if (this.update) this.update();
-		if (this.afterUpdate) this.afterUpdate();
+		if (this.update) this.update(args);
+		if (this.afterUpdate) this.afterUpdate(args);
 	}
 
-	triggerRender() {
-		if (this.beforeRender) this.beforeRender();
+	triggerRender(args = {}) {
+		if (this.beforeRender) this.beforeRender(args);
 
 		if (this.children.size)
 			this.children.forEach((child) => child.isInitialized && child.triggerRender());
 
 		if (this.render) this.render();
-		if (this.afterRender) this.afterRender();
+		if (this.afterRender) this.afterRender(args);
 	}
 
 	triggerDestroy() {

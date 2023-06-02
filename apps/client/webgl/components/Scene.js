@@ -3,6 +3,6 @@ import PixelNoisePlane from './PixelNoisePlane';
 
 export default class Scene extends BaseScene {
 	init() {
-		this.pixelNoisePlane = this.add(PixelNoisePlane);
+		// this.pixelNoisePlane = this.add(PixelNoisePlane);
 	}
 }

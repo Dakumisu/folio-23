@@ -30,7 +30,7 @@
       "~public/*": [ "./public/*" ],
       "~config/*": [ "./config/*" ],
 
-      "~webgl": [ "./webgl/index.js" ],
+      "~webgl": [ "webgl/webgl.js" ],
       "~app": [ "./app/index.js" ],
     }
   }

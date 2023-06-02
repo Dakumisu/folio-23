@@ -51,7 +51,7 @@ export class Post {
 		textureUniform = 'tMap',
 		enabled = true,
 	} = {}) {
-		uniforms[textureUniform] = { value: this.fbo.read.texture };
+		uniforms[ textureUniform ] = { value: this.fbo.read.texture };
 
 		const program = new Program(this.gl, { vertex, fragment, uniforms });
 		const mesh = new Mesh(this.gl, { geometry: this.geometry, program });
@@ -112,7 +112,7 @@ export class Post {
 		}
 
 		enabledPasses.forEach((pass, i) => {
-			pass.mesh.program.uniforms[pass.textureUniform].value =
+			pass.mesh.program.uniforms[ pass.textureUniform ].value =
 				!i && texture ? texture : this.fbo.read.texture;
 			this.gl.renderer.render({
 				scene: pass.mesh,

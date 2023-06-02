@@ -22,6 +22,7 @@ export class PixelNoiseMaterial extends Program {
 		super(gl, {
 			vertex: vs,
 			fragment: fs,
+			transparent: true,
 			uniforms: {
 				...webgl.uniforms,
 				...args.uniforms,

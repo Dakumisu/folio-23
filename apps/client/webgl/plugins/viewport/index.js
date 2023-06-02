@@ -23,15 +23,19 @@ export function viewportPlugin() {
 	return function install(webgl) {
 		webgl.$viewport = api;
 
-		// Link the app's viewport plugin to the webgl's viewport plugin
 		const vp = webgl.$app.$viewport;
-		watch(
-			() => [ vp.width, vp.height, vp.dpr ],
-			() => {
-				resize(vp);
-				webgl.resize && webgl.resize();
-			},
-			{ immediate: true },
-		);
+
+		// Start watching viewport changes after webgl is initialized
+		webgl.hooks.afterInit.watchOnce(() => {
+			// Link the app's viewport plugin to the webgl's viewport plugin
+			watch(
+				() => [ vp.width, vp.height, vp.dpr ],
+				() => {
+					resize(vp);
+					webgl.resize && webgl.resize();
+				},
+				{ immediate: true }
+			);
+		});
 	};
 }

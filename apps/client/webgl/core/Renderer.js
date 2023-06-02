@@ -62,7 +62,7 @@ export default class Renderer extends BaseComponent {
 
 	render() {
 		const { scene, camera } = this.webgl;
-		// console.log(scene);
+
 		if (!scene?.instance || !camera?.instance)
 			return console.error('No scene or camera provided');
 
