@@ -1,8 +1,6 @@
 import { generateUUID } from '@lm/utils/string';
 import { getWebgl } from '~webgl/core';
-/// #if DEBUG
 import { createLogger } from '@lm/utils/debug';
-/// #endif
 
 let uid = 0;
 

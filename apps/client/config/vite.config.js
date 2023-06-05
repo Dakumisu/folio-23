@@ -1,10 +1,8 @@
 import vue from '@vitejs/plugin-vue';
-// import glsl from 'vite-plugin-glsl';
 import { defineConfig } from 'vite';
-// import hotShadersRollupPlugin from './plugins/hotShaders/hotshadersRollupPlugin';
+import glsl from './plugins/glsl';
 import ifdefRollupPlugin from './plugins/ifdef/ifdefRollupPlugin';
 import { getPaths } from './utils/paths';
-import glsl from './plugins/glsl';
 
 export default ({ mode = 'development' }) => {
 	const isDevelopment = mode === 'development';
@@ -58,6 +56,15 @@ export default ({ mode = 'development' }) => {
 		resolve: {
 			alias: pathsAliases,
 			extensions: ['.cjs', '.mjs', '.js', '.ts', '.jsx', '.tsx', '.vue'],
+		},
+
+		build: {
+			target: 'esnext',
+			outDir: paths.dist,
+			assetsDir: 'assets',
+			emptyOutDir: true,
+			sourcemap: isDevelopment,
+			minify: isProduction,
 		},
 	});
 };

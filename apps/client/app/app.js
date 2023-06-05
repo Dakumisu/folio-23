@@ -1,7 +1,8 @@
+import './style/main.scss';
+
 import { createApp } from 'vue';
 import AppComponent from './App.vue';
 import { plugins as pluginsList } from './plugins';
-import './style/main.scss';
 
 let plugins = null;
 
@@ -24,8 +25,7 @@ const onDomReady = async () => {
 	/// #endif
 
 	// Await preloading stuffs
-	// console.log(plugins);
-	// await plugins.$webgl.preload && plugins.$webgl.preload();
+	// if (plugins.$webgl.preload) await plugins.$webgl.preload();
 
 	// Mount Vue app
 	app.mount('#app');

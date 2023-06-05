@@ -11,21 +11,15 @@
 				text="Work in progres..."
 				direction="random"
 			/>
-			<!-- <h1>
-				Portfolio 23'
-			</h1>
-			<p>
-				Work in progres...
-			</p> -->
 		</div>
 		<div class="side infos">
 			<span>Alex - Dakumisu</span>
-			<span>Web Developper</span>
+			<span>Web Developer</span>
 			<span>Student @ <a
 				href="https://www.gobelins.fr/"
 				target="_blank"
 			>Gobelins</a></span>
-			<span>Developper @ <a
+			<span>Developer @ <a
 				href="https://www.merci-michel.com/"
 				target="_blank"
 			>Merci-Michel</a></span>
@@ -51,7 +45,6 @@
 </template>
 
 <script setup>
-
 </script>
 
 <style lang="scss">
