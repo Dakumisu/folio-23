@@ -7,6 +7,7 @@ import blueNoiseUrl from '~assets/canvas/blue-noise.png?url';
 const pixelPassFragment = /* glsl */ `
 precision highp float;
 
+uniform float time;
 uniform sampler2D blueNoiseTexture;
 uniform sampler2D tMap;
 
@@ -34,6 +35,14 @@ vec3 GetBlueNoiseDither(vec3 tex, vec2 pixelCoord, float perPixel){
 #define BlueNoise512(x) GetBlueNoiseDither(x, gl_FragCoord.xy, per512)
 #define BlueNoise1024(x) GetBlueNoiseDither(x, gl_FragCoord.xy, per1024)
 
+vec2 pixelise(vec2 uv, float pixelSize) {
+	return floor(uv / pixelSize) * pixelSize;
+}
+
+float normSin(float x, float range) {
+	return sin(x) * range + range;
+}
+
 void main() {
 	vec2 uv = vUv;
 	vec4 tex = texture2D(tMap, uv);
@@ -56,6 +65,7 @@ vec2 offset(vec2 uv, vec2 offset) {
 
 void main() {
 	vec2 uv = vUv;
+
 
 	vec2 rUv = offset(uv, vec2(.002, 0.003));
 	vec2 gUv = offset(uv, vec2(-.003, 0.001));
@@ -123,6 +133,7 @@ export function createWebgl(webgl) {
 		postPixel.addPass({
 			fragment: pixelPassFragment,
 			uniforms: {
+				...webgl.uniforms,
 				blueNoiseTexture: { value: loadTexture(blueNoiseUrl, gl) }
 			},
 		});

@@ -17,6 +17,14 @@ vec2 pixelise(vec2 uv, float pixelSize) {
 	return floor(uv / pixelSize) * pixelSize;
 }
 
+float normSin(float x, float range) {
+	return sin(x) * range + range;
+}
+
+vec2 offset(vec2 uv, vec2 offset) {
+	return uv + offset;
+}
+
 void main() {
 	float _time = time * .4;
 	vec2 ratio = vec2(resolution.w, 1.);
@@ -25,7 +33,7 @@ void main() {
 	vec2 normUv = uv * ratio;
 	normUv -= (ratio - 1.) / 2.;
 
-	vec2 pixelUv = pixelise(uv, .005); // effet de transition cool
+	vec2 pixelUv = pixelise(uv, normSin(_time, .005)); // effet de transition cool
 	vec2 uvZoom = zoom(uv, 5.);
 	vec2 uvZoom2 = zoom(uv, 3.);
 
@@ -41,7 +49,7 @@ void main() {
 	pixelNoise = smoothstep(.2, .75, pixelNoise);
 
 	float circleMask = 1. - smoothstep(.25, .5, length(normUv - .5));
-	circleMask = circleMask + (outerNoise * .7 * (1. - circleMask));
+	circleMask = circleMask + (outerNoise * .45 * (1. - circleMask));
 
 	gl_FragColor = vec4(vec3(pixelNoise), circleMask);
 }

@@ -50,10 +50,11 @@ export class Post {
 		uniforms = {},
 		textureUniform = 'tMap',
 		enabled = true,
+		transparent = false,
 	} = {}) {
 		uniforms[ textureUniform ] = { value: this.fbo.read.texture };
 
-		const program = new Program(this.gl, { vertex, fragment, uniforms });
+		const program = new Program(this.gl, { vertex, fragment, uniforms, transparent });
 		const mesh = new Mesh(this.gl, { geometry: this.geometry, program });
 
 		const pass = {
