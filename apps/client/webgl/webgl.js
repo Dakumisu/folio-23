@@ -1,6 +1,4 @@
 import { Mesh, Post, Texture, Triangle } from '@lm/le-webgl';
-import Scene from './components/Scene';
-import BaseCamera from './core/BaseCamera';
 import Renderer from './core/Renderer';
 import { PixelNoiseMaterial } from './shaders/materials/PixelNoise/PixelNoiseMaterial';
 
@@ -28,6 +26,14 @@ vec2 pixelise(vec2 uv, float pixelSize) {
 	return floor(uv / pixelSize) * pixelSize;
 }
 
+vec2 zoom(vec2 uv, float zoom) {
+	return (uv - .5) / zoom + .5;
+}
+
+vec2 offset(vec2 uv, vec2 offset) {
+	return uv + offset;
+}
+
 vec3 GetBlueNoiseDither(vec3 tex, vec2 pixelCoord, float perPixel){
     vec2 uv = (vec2(pixelCoord) + vec2(0.5)) * perPixel;
     float blueNoiseValue = texture2D(blueNoiseTexture, fract(uv), 0.0).x;
@@ -45,10 +51,16 @@ vec3 GetBlueNoiseDither(vec3 tex, vec2 pixelCoord, float perPixel){
 #define BlueNoise1024(x, coord) GetBlueNoiseDither(x, coord, per1024)
 
 void main() {
-	vec2 ratio = vec2(1., resolution.w) * resolution.z;
-	vec2 uv = gl_FragCoord.xy / resolution.xy;
-	uv.y *= resolution.z;
-	uv *= ratio;
+	vec2 ratio = vec2(1., resolution.w);
+	vec2 uv = vUv;
+	// vec2 uv = gl_FragCoord.xy / resolution.xy;
+	// uv *= resolution.z;
+	// uv /= ratio;
+
+	// According to the ratio, we need to scale the uv and center it
+	float z = resolution.z + .2;
+	// uv = zoom(uv, z);
+	// uv = offset(uv, vec2(0., (1. - z) * .5));
 
 	// uv = pixelise(uv, .01);
 
@@ -71,16 +83,29 @@ uniform vec4 resolution;
 
 varying vec2 vUv;
 
+vec2 offset(vec2 uv, vec2 offset) {
+	return uv + offset;
+}
+
+float offset(float uv, float offset) {
+	return uv + offset;
+}
+
 void main() {
 	vec2 ratio = vec2(1., resolution.w) * resolution.z;
-	// vec2 uv = gl_FragCoord.xy / resolution.xy;
-	// uv *= ratio;
-	// uv.y *= resolution.z;
-
 	vec2 uv = vUv;
 
+	vec2 rUv = offset(uv, vec2(.002, 0.003));
+	vec2 gUv = offset(uv, vec2(-.003, 0.001));
+	vec2 bUv = offset(uv, vec2(0.0, -.003));
+
+	float r = texture2D(tPixel, rUv).r;
+	float g = texture2D(tPixel, gUv).g;
+	float b = texture2D(tPixel, bUv).b;
+
+	vec4 pixel = vec4(r, g, b, 1.);
+
 	vec4 tex = texture2D(tMap, uv);
-	vec4 pixel = texture2D(tPixel, uv);
 
 	gl_FragColor = pixel;
 }
@@ -102,9 +127,8 @@ const loadTexture = (url, gl) => {
 };
 
 export function createWebgl(webgl) {
-	let pixelNoise, postprocess, pixelPost;
+	let pixelNoise;
 	let postComposite, postPixel, compositePass;
-	const passes = {};
 
 	// const camera = webgl.camera = new BaseCamera(); // TODO: move camera in scene
 	// const scene = webgl.scene = new Scene();
@@ -122,7 +146,6 @@ export function createWebgl(webgl) {
 
 		const geometry = new Triangle(gl);
 		const program = new PixelNoiseMaterial(gl);
-
 		pixelNoise = new Mesh(gl, { geometry, program });
 
 		const { width, height, dpr } = webgl.$viewport;
@@ -197,7 +220,6 @@ export function createWebgl(webgl) {
 		// This renders the scene to postComposite.uniform.value
 		postComposite.render({ scene: pixelNoise });
 
-		// This render the bloom effect's bright and blur passes to postPixel.fbo.read
 		// Passing in a `texture` argument avoids the post initially rendering the scene
 		postPixel.render({ texture: postComposite.uniform.value });
 

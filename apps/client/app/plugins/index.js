@@ -1,10 +1,11 @@
 import { routerPlugin } from './router';
+import { textShufflePlugin } from './txtShuffle';
 import { viewportPlugin } from './viewport';
 import { webglPlugin } from './webgl';
 
-// prettier-ignore
 export const plugins = [
 	routerPlugin,
 	viewportPlugin,
 	webglPlugin,
+	textShufflePlugin
 ];

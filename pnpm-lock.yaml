@@ -1,4 +1,8 @@
-lockfileVersion: '6.0'
+lockfileVersion: '6.1'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
 
 importers:
 
@@ -90,7 +94,11 @@ importers:
         specifier: ^6.0.2
         version: 6.0.2(stylelint@15.3.0)
 
-  packages/utils: {}
+  packages/utils:
+    dependencies:
+      bezier-easing:
+        specifier: ^2.1.0
+        version: 2.1.0
 
   packages/webgl: {}
 
@@ -642,6 +650,10 @@ packages:
 
   /balanced-match@2.0.0:
     resolution: {integrity: sha512-1ugUSr8BHXRnK23KfuYS+gVMC3LB8QGH9W1iGtDPsNWoQbgtXSExkBu2aDR4epiGWZOjZsj6lDl/N/AqqTC3UA==}
+    dev: false
+
+  /bezier-easing@2.1.0:
+    resolution: {integrity: sha512-gbIqZ/eslnUFC1tjEvtz0sgx+xTK20wDnYMIA27VA04R7w6xxXQPZDbibjA9DTWZRA2CXtwHykkVzlCaAJAZig==}
     dev: false
 
   /binary-extensions@2.2.0:

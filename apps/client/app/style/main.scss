@@ -1,3 +1,5 @@
+@import url('./fonts.scss');
+
 :root {
   font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
   font-size: 16px;
@@ -22,6 +24,14 @@ body {
 	overflow-x: hidden;
 }
 
-// ::-webkit-scrollbar {
-// 	display: none;
-// }
+* {
+	font-family: 'Non-NaturalMono-Light';
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+
+::-webkit-scrollbar {
+	display: none;
+}

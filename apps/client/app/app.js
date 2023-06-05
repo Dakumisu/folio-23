@@ -29,11 +29,8 @@ const onDomReady = async () => {
 
 	// Mount Vue app
 	app.mount('#app');
-
-	// document.removeEventListener('DOMContentLoaded', onDomReady);
 };
 
 document.addEventListener('DOMContentLoaded', onDomReady, { once: true });
 
 export { plugins as app };
-export default plugins;

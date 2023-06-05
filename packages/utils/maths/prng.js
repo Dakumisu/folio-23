@@ -39,6 +39,8 @@ function prng(seed = 0) {
 		randomDirection,
 		hash2d,
 		hash2dInt,
+		pick,
+		shuffle
 	};
 
 	function setSeed(newSeed) {
@@ -68,7 +70,7 @@ function prng(seed = 0) {
 		const letters = '0123456789ABCDEF';
 		let color = '#';
 		for (let i = 0; i < 6; i++) {
-			color += letters[Math.floor(random * 16)];
+			color += letters[ Math.floor(random * 16) ];
 		}
 		return color;
 	}
@@ -101,6 +103,29 @@ function prng(seed = 0) {
 
 	function hash2dInt(x, y, min, max) {
 		return Math.floor(hash2d(x, y) * (max - min + 1)) + min;
+	}
+
+
+	function pick(array) {
+		if (array.length === 0) return;
+		return array[ randomInt(0, array.length - 1) ];
+	}
+
+	function shuffle(arr) {
+		if (!Array.isArray(arr))
+			throw new TypeError('Expected Array, got ' + typeof arr);
+
+		let rand;
+		let tmp;
+		let len = arr.length;
+		let ret = arr.slice();
+		while (len) {
+			rand = Math.floor(randomizer.nextFloat() * len--);
+			tmp = ret[ len ];
+			ret[ len ] = ret[ rand ];
+			ret[ rand ] = tmp;
+		}
+		return ret;
 	}
 }
 
