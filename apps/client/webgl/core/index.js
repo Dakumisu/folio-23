@@ -66,7 +66,7 @@ function createWebgl(canvas) {
 
 		api.init();
 
-		requestAnimationFrame(frame);
+		// requestAnimationFrame(frame);
 	}
 
 	function assignMethodHook(method, isAsync = false) {
@@ -92,7 +92,7 @@ function createWebgl(canvas) {
 	function frame() {
 		api.update();
 		api.render();
-		requestAnimationFrame(frame);
+		// requestAnimationFrame(frame);
 	}
 
 	function destroy() {
