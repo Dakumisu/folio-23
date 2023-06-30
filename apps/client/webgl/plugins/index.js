@@ -1,9 +1,11 @@
-import { postfxPlugin } from './postfx';
+import { composerPlugin } from './composer';
+import { loaderPlugin } from './loader';
 import { timePlugin } from './time';
 import { viewportPlugin } from './viewport';
 
 export const plugins = [
 	viewportPlugin,
-	// postfxPlugin
-	timePlugin
+	timePlugin,
+	loaderPlugin,
+	composerPlugin
 ];

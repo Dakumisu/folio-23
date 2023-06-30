@@ -16,5 +16,9 @@ export function webglPlugin() {
 
 		// Start the webgl instance
 		api.install();
+
+		/// #if DEBUG
+		window.$webgl = api;
+		/// #endif
 	};
 }

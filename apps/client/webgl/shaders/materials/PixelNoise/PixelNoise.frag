@@ -46,7 +46,11 @@ void main() {
 
 	float outerNoise = pow(animatedNoise.b, 1.1) * (pow(animatedNoise2.b, 1.1) * .6) * 3.;
 	float pixelNoise = animatedNoise.g;
-	pixelNoise = smoothstep(.2, .75, pixelNoise);
+	pixelNoise = smoothstep(.4, .65, pixelNoise);
+	pixelNoise *= .7;
+
+	// Steping the pixel noise
+	// pixelNoise = floor(pixelNoise * 25.) / 25.;
 
 	float circleMask = 1. - smoothstep(.25, .5, length(normUv - .5));
 	circleMask = circleMask + (outerNoise * .45 * (1. - circleMask));

@@ -6,7 +6,7 @@ import { createWebgl as decorator } from '~webgl/webgl';
 
 const NOOP = () => {};
 
-const HOOKS = ['init', 'preload', 'update', 'render', 'frame', 'resize'].reduce((acc, key) => {
+const HOOKS = ['init', 'start', 'preload', 'update', 'render', 'frame', 'resize'].reduce((acc, key) => {
 	// Create 'before' and 'after' hooks for each methods above
 	acc[ `before${ ucfirst(key) }` ] = s();
 	acc[ `after${ ucfirst(key) }` ] = s();
@@ -34,6 +34,8 @@ function createWebgl(canvas) {
 		installPlugins,
 
 		init: NOOP,
+		start: NOOP,
+		preload: NOOP,
 		resize: NOOP,
 		update: NOOP,
 		render: NOOP,
@@ -47,6 +49,7 @@ function createWebgl(canvas) {
 
 	assignMethodHook('init', true);
 	assignMethodHook('preload', true);
+	assignMethodHook('start');
 	assignMethodHook('update');
 	assignMethodHook('render');
 	assignMethodHook('frame');
@@ -65,8 +68,8 @@ function createWebgl(canvas) {
 		await installPlugins();
 
 		api.init();
-
-		// requestAnimationFrame(frame);
+		await api.preload();
+		api.start();
 	}
 
 	function assignMethodHook(method, isAsync = false) {
@@ -92,7 +95,6 @@ function createWebgl(canvas) {
 	function frame() {
 		api.update();
 		api.render();
-		// requestAnimationFrame(frame);
 	}
 
 	function destroy() {

@@ -26,7 +26,7 @@ export function viewportPlugin() {
 		const vp = webgl.$app.$viewport;
 
 		// Start watching viewport changes after webgl is initialized
-		webgl.hooks.afterInit.watchOnce(() => {
+		webgl.hooks.afterStart.watchOnce(() => {
 			// Link the app's viewport plugin to the webgl's viewport plugin
 			watch(
 				() => [ vp.width, vp.height, vp.dpr ],
