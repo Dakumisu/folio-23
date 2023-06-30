@@ -23,7 +23,7 @@ const float per1024 = 1. / 1024.;
 
 vec3 GetBlueNoiseDither(vec3 tex, vec2 pixelCoord, float perPixel){
     vec2 uv = (vec2(pixelCoord) + vec2(0.5)) * perPixel;
-    float blueNoiseValue = texture2D(blueNoiseTexture, fract(uv), 0.0).x;
+    float blueNoiseValue = texture2D(blueNoiseTexture, fract(uv)).x;
 	return step(tex, vec3(blueNoiseValue));
 }
 
@@ -39,15 +39,15 @@ vec2 pixelise(vec2 uv, float pixelSize) {
 	return floor(uv / pixelSize) * pixelSize;
 }
 
-float normSin(float x, float range) {
-	return sin(x) * range + range;
-}
-
 void main() {
 	vec2 uv = vUv;
 	vec4 tex = texture2D(tMap, uv);
-	vec3 ditherTex = BlueNoise256(tex.rgb);
-	ditherTex = mix(BlueNoise128(tex.rgb), ditherTex, step(.5, ditherTex * .4));
+	// pixelise(uv, .01)
+	vec3 ditherTex = BlueNoise128(tex.rgb);
+
+	// ditherTex = mix(ditherTex, tex.rgb, tex.rgb * .2);
+
+	// ditherTex = mix(BlueNoise128(tex.rgb), ditherTex, step(.5, ditherTex * .4));
 	gl_FragColor = vec4(1. - ditherTex, 1.);
 }
 `;
@@ -66,16 +66,17 @@ vec2 offset(vec2 uv, vec2 offset) {
 void main() {
 	vec2 uv = vUv;
 
-
-	vec2 rUv = offset(uv, vec2(.002, 0.003));
+	vec2 rUv = offset(uv, vec2(.001, 0.003));
 	vec2 gUv = offset(uv, vec2(-.003, 0.001));
-	vec2 bUv = offset(uv, vec2(0.0, -.003));
+	vec2 bUv = offset(uv, vec2(.002, -.001));
 
 	float r = texture2D(tPixelPass, rUv).r;
 	float g = texture2D(tPixelPass, gUv).g;
 	float b = texture2D(tPixelPass, bUv).b;
 
 	vec4 pixel = vec4(r, g, b, 1.);
+
+	pixel = texture2D(tPixelPass, uv);
 
 	gl_FragColor = pixel;
 }

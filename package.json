@@ -22,7 +22,7 @@
   "devDependencies": {
     "@lm/eslint-config": "workspace:*",
     "@lm/stylelint-config": "workspace:*",
-    "turbo": "^1.10.1"
+    "turbo": "^1.10.2"
   },
   "engines": {
     "node": ">=18.0.0"
