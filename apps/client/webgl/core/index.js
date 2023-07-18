@@ -78,15 +78,15 @@ function createWebgl(canvas) {
 		const originCall = api[ method ];
 
 		if (isAsync) {
-			api[ method ] = async function (...args) {
+			api[ method ] = async function (a, b, c, d) {
 				before.emit();
-				await originCall(...args);
+				await originCall(a, b, c, d);
 				after.emit();
 			};
 		} else {
-			api[ method ] = function (...args) {
+			api[ method ] = function (a, b, c, d) {
 				before.emit();
-				originCall(...args);
+				originCall(a, b, c, d);
 				after.emit();
 			};
 		}
