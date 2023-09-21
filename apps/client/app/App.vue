@@ -8,7 +8,7 @@
 			/>
 			<TextShuffle
 				tag="p"
-				text="Work in progres..."
+				text="Work in progress... (too lazy to finish it)"
 				direction="random"
 			/>
 		</div>

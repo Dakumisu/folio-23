@@ -47,9 +47,9 @@ function createWebgl(canvas) {
 	shaderProps(api);
 	decorator(api);
 
-	assignMethodHook('init', true);
-	assignMethodHook('preload', true);
-	assignMethodHook('start');
+	assignMethodHook('init', true, true);
+	assignMethodHook('preload', true, true);
+	assignMethodHook('start', false, true);
 	assignMethodHook('update');
 	assignMethodHook('render');
 	assignMethodHook('frame');
@@ -72,7 +72,7 @@ function createWebgl(canvas) {
 		api.start();
 	}
 
-	function assignMethodHook(method, isAsync = false) {
+	function assignMethodHook(method, isAsync = false, once = false) {
 		const before = HOOKS[ `before${ ucfirst(method) }` ];
 		const after = HOOKS[ `after${ ucfirst(method) }` ];
 		const originCall = api[ method ];
@@ -82,12 +82,22 @@ function createWebgl(canvas) {
 				before.emit();
 				await originCall(a, b, c, d);
 				after.emit();
+
+				if (once) {
+					before.unwatchAll();
+					after.unwatchAll();
+				}
 			};
 		} else {
 			api[ method ] = function (a, b, c, d) {
 				before.emit();
 				originCall(a, b, c, d);
 				after.emit();
+
+				if (once) {
+					before.unwatchAll();
+					after.unwatchAll();
+				}
 			};
 		}
 	}

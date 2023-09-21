@@ -39,7 +39,8 @@ export default ({ mode = 'development' }) => {
 			vue(),
 			ifdefRollupPlugin(MANDATORY_DEFINES),
 			glsl({
-				include: [ // Glob pattern, or array of glob patterns to import
+				include: [
+					// Glob pattern, or array of glob patterns to import
 					'**/*.glsl', '**/*.wgsl',
 					'**/*.vert', '**/*.frag',
 					'**/*.vs', '**/*.fs'
