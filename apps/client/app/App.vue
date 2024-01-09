@@ -33,7 +33,7 @@
 				Github
 			</a>
 			<a
-				href="https://twitter.com/Dakumisu_psd"
+				href="https://twitter.com/dakumisu_"
 				target="_blank"
 			>
 				Twitter
