@@ -1,43 +1,65 @@
 <template>
 	<main class="ui">
-		<div class="center container">
-			<TextShuffle
+		<!-- <div class="center container"> -->
+		<!-- <TextShuffle
 				tag="h1"
 				text="Portfolio 23'"
 				direction="random"
-			/>
-			<TextShuffle
+			/> -->
+		<!-- <TextShuffle
 				tag="p"
 				text="Work in progress... (too lazy to finish it)"
 				direction="random"
-			/>
-		</div>
+			/> -->
+		<!-- </div> -->
 		<div class="side infos">
 			<span>Alex - Dakumisu</span>
 			<span>Web Developer</span>
-			<span>Student @ <a
+			<span>Available for ✨freelance✨</span>
+			<span>/</span>
+			<span>Former Student @ <a
 				href="https://www.gobelins.fr/"
 				target="_blank"
 			>Gobelins</a></span>
-			<span>Developer @ <a
+			<span>Former Developer @ <a
 				href="https://www.merci-michel.com/"
 				target="_blank"
 			>Merci-Michel</a></span>
 		</div>
 		<div class="side socials">
-			<a href="mailto:dakumisu.psd@gmail.com">Mail</a>
-			<a
+			<TextShuffle
+				tag="a"
+				href="mailto:dakumisu.psd@gmail.com"
+				text="Mail......../"
+			/>
+			<!-- <a href="mailto:dakumisu.psd@gmail.com">
+				Mail......../
+			</a> -->
+			<TextShuffle
+				tag="a"
 				href="https://github.com/Dakumisu"
 				target="_blank"
-			>
-				Github
-			</a>
-			<a
+				text="Github....../"
+			/>
+			<TextShuffle
+				tag="a"
 				href="https://twitter.com/dakumisu_"
 				target="_blank"
-			>
-				Twitter
-			</a>
+				text="Twitter...../"
+			/>
+			<TextShuffle
+				tag="a"
+				href="https://www.instagram.com/dakumisu.cool/"
+				target="_blank"
+				text="Instagram.../"
+			/>
+			<span>/</span>
+			<TextShuffle
+				tag="a"
+				href="https://photo.dakumisu.fr/"
+				target="_blank"
+				text="Gallery...../"
+			/>
 		</div>
 	</main>
 
