@@ -1,6 +1,7 @@
 precision highp float;
 
 uniform float time;
+uniform float seed;
 uniform vec4 resolution;
 uniform sampler2D noiseTexture;
 
@@ -26,7 +27,7 @@ vec2 offset(vec2 uv, vec2 offset) {
 }
 
 void main() {
-	float _time = time * .4;
+	float _time = time * .4 + seed;
 	vec2 ratio = vec2(resolution.w, 1.);
 
 	vec2 uv = vUv;

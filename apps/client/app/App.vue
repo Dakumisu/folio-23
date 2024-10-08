@@ -13,18 +13,24 @@
 			/> -->
 		<!-- </div> -->
 		<div class="side infos">
-			<span>Alex - Dakumisu</span>
-			<span>Web Developer</span>
-			<span>Available for ✨freelance✨</span>
+			<span>Dakumisu</span>
+			<span>Web Developer & Photographer</span>
+			<span>Available for <span v-html="randomEmoji"></span> freelance <span v-html="randomEmoji"></span></span>
 			<span>/</span>
-			<span>Former Student @ <a
-				href="https://www.gobelins.fr/"
-				target="_blank"
-			>Gobelins</a></span>
-			<span>Former Developer @ <a
-				href="https://www.merci-michel.com/"
-				target="_blank"
-			>Merci-Michel</a></span>
+			<span>Former Student @
+				<TextShuffle
+					tag="a"
+					href="https://www.gobelins.fr/"
+					target="_blank"
+					text="Gobelins"
+				/></span>
+			<span>Former Developer @
+				<TextShuffle
+					tag="a"
+					href="https://www.merci-michel.com/"
+					target="_blank"
+					text="Merci-Michel"
+				/></span>
 		</div>
 		<div class="side socials">
 			<TextShuffle
@@ -32,9 +38,6 @@
 				href="mailto:dakumisu.psd@gmail.com"
 				text="Mail......../"
 			/>
-			<!-- <a href="mailto:dakumisu.psd@gmail.com">
-				Mail......../
-			</a> -->
 			<TextShuffle
 				tag="a"
 				href="https://github.com/Dakumisu"
@@ -67,6 +70,15 @@
 </template>
 
 <script setup>
+	import { prng } from '@lm/utils/maths';
+	import { onMounted, shallowRef } from 'vue';
+
+	const EMOJIS = [ '✨', '💸', '🫶', '😎', '🤓', '✌️', '🌻' ];
+	const randomEmoji = shallowRef('');
+
+	onMounted(() => {
+		randomEmoji.value = prng.pick(EMOJIS);
+	});
 </script>
 
 <style lang="scss">

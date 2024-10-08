@@ -5,6 +5,7 @@ import fs from './PixelNoise.frag';
 import vs from './PixelNoise.vert';
 
 import noiseTexture from '~assets/canvas/perlin-noise.png?url';
+import { prng } from '@lm/utils/maths';
 
 export class PixelNoiseMaterial extends Program {
 	constructor(gl, args = {}) {
@@ -27,6 +28,7 @@ export class PixelNoiseMaterial extends Program {
 				...webgl.uniforms,
 				...args.uniforms,
 				noiseTexture: { value: texture },
+				seed: { value: prng.randomFloatSpread(1000) },
 			},
 		});
 	}
